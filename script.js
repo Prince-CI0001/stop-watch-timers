@@ -1,17 +1,15 @@
 
 let startBtn = document.getElementById('play');
-let stopBtn = document.getElementById('pause');
+let pauseBtn = document.getElementById('pause');
 let resetBtn = document.getElementById('reset');
 
 let startBtn1 = document.getElementById('play1');
-let stopBtn1 = document.getElementById('pause1');
+let pauseBtn1 = document.getElementById('pause1');
 let resetBtn1 = document.getElementById('reset1');
 
 let currentTime;
 let currentTime1;
 
-// let timer;
-// let timer1;
 let obj = {
 	hour : 00,
 	minute : 00,
@@ -26,19 +24,20 @@ let obj1 = {
 	count1 : 00,
 }
 
-
+//PLAY BUTTONS
 startBtn.addEventListener('click', function () {
-	showButton("pause");
+	showButton("pause",startBtn,pauseBtn);
 	currentTime =stopWatch(obj.hour , obj.minute , obj.second, obj.count ,'watch',currentTime);
 });
 
 startBtn1.addEventListener('click', function () {
     
-	showButton1("pause");
+	showButton("pause",startBtn1,pauseBtn1);
 	currentTime1 = stopWatch(obj1.hour1 , obj1.minute1 , obj1.second1, obj1.count1 ,'watch1' , currentTime1);
 });
 
-stopBtn.addEventListener('click', function () {
+//pauseBtn
+ pauseBtn.addEventListener('click', function () {
 	let time = document.getElementById("watch").innerText.split(":");
 	obj = {	
 	hour : parseInt(time[0]),
@@ -47,10 +46,10 @@ stopBtn.addEventListener('click', function () {
 	count : parseInt(time[3]),
 	}
 	clearInterval(currentTime);
-    showButton("play");
+    showButton("play",startBtn,pauseBtn);
 });
 
-stopBtn1.addEventListener('click', function () {
+pauseBtn1.addEventListener('click', function () {
 	let time1 = document.getElementById("watch1").innerText.split(":");
 	obj1 = {	
 	hour1 : parseInt(time1[0]),
@@ -59,9 +58,9 @@ stopBtn1.addEventListener('click', function () {
 	count1 : parseInt(time1[3])
 	}
 	clearInterval(currentTime1);
-    showButton1("play");
+    showButton("play",startBtn1,pauseBtn1);
 });
-
+//Reset Buttons
 resetBtn.addEventListener('click', function () {
 	clearInterval(currentTime);
 	obj.hour = 0;
@@ -80,6 +79,8 @@ resetBtn1.addEventListener('click', function () {
     document.getElementById("watch1").innerHTML = "00:00:00:00";    
 });
 
+
+//Start function//
 function stopWatch(hour,minute,second,count,id, liveTime) {
 	
 	 	liveTime = setInterval(()=>{
@@ -127,19 +128,10 @@ function stopWatch(hour,minute,second,count,id, liveTime) {
 		return liveTime;
 }
 
-
-function showButton(buttonKey) {
-    const buttonToShow = buttonKey === "play" ? startBtn : stopBtn;
-    const buttonToHide = buttonKey === "play" ? stopBtn : startBtn;
-    buttonToShow.style.display = "block";
-    buttonToHide.style.display = "none";
-}
-
-
-
-function showButton1(buttonKey) {
-    const buttonToShow = buttonKey === "play" ? startBtn1 : stopBtn1;
-    const buttonToHide = buttonKey === "play" ? stopBtn1 : startBtn1;
+//
+function showButton(buttonKey,startBtn,pauseBtn) {
+    const buttonToShow = buttonKey === "play" ? startBtn : pauseBtn;
+    const buttonToHide = buttonKey === "play" ? pauseBtn : startBtn;
     buttonToShow.style.display = "block";
     buttonToHide.style.display = "none";
 }
